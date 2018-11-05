@@ -13,12 +13,13 @@ db = SQLAlchemy()
 def create_app(config_type):
     app = Flask(__name__)
     app.config.from_object(config[config_type])
-    # to do init app
-
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    # to do check it
+    config[config_type].init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
     db.init_app(app)
+
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
     return app
